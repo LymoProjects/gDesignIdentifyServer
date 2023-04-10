@@ -50,7 +50,7 @@ namespace gd__ {
         static
         auto generateFeature(std::string const & imgName, http::Res & res) -> void {
             try {
-                cv::Mat imgData(cv::imread("images/" + imgName));
+                cv::Mat imgData(cv::imread("images/" + imgName + ".jpg"));
 
                 cv::resize(imgData, imgData, cv::Size(200, 300));
 
@@ -70,13 +70,7 @@ namespace gd__ {
 
                 faceRec->feature(imgAligned, imgFeature);
 
-                auto parts {str::split(imgName, '.')};
-
-                std::string featureBinPath("features/");
-                featureBinPath += parts[0].c_str();
-                featureBinPath += ".bin";
-
-                SaveMatBinary(featureBinPath, imgFeature);
+                SaveMatBinary("features/" + imgName + ".bin", imgFeature);
 
                 addSuccessHeader(res);
             } catch (std::exception const & e) {
