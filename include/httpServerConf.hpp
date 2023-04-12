@@ -83,12 +83,40 @@ namespace gd__ {
         static
         auto addSuccessHeader(http::Res & res) -> void {
             res.add_header(httpHeaderConf::kResult, httpHeaderConf::kSuccess);
+
+            res.add_header(
+                    "Access-Control-Allow-Origin",
+                    "*"
+            );
+
+            res.add_header(
+                    "Access-Control-Allow-Headers",
+                    "*"
+            );
+            res.add_header(
+                    "Access-Control-Expose-Headers",
+                    "*"
+            );
         }
 
         static
         auto addFailedHeader(http::Res & res, std::string const & err) -> void {
             res.add_header(httpHeaderConf::kResult, httpHeaderConf::kFailed);
             res.add_header(httpHeaderConf::kReason, err.c_str());
+
+            res.add_header(
+                    "Access-Control-Allow-Origin",
+                    "*"
+            );
+
+            res.add_header(
+                    "Access-Control-Allow-Headers",
+                    "*"
+            );
+            res.add_header(
+                    "Access-Control-Expose-Headers",
+                    "*"
+            );
         }
     };
 }
